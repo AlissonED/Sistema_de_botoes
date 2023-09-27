@@ -1,0 +1,48 @@
+int LED1 = 2; // LED 1 conectado ao pino 2
+int BOTAO1 = 3; // Botão 1 conectado ao pino 3
+int LED2 = 4; // LED 2 conectado ao pino 4
+int BOTAO2 = 5; // Botão 2 conectado ao pino 5
+
+int ESTADO_BOTAO1 = 0; // Variável para leitura do estado do Botão 1
+int ESTADO_BOTAO2 = 0; // Variável para leitura do estado do Botão 2
+
+void setup() {
+  pinMode(LED1, OUTPUT); // Configura o LED 1 como saída
+  pinMode(BOTAO1, INPUT); // Configura o Botão 1 como entrada
+  pinMode(LED2, OUTPUT); // Configura o LED 2 como saída
+  pinMode(BOTAO2, INPUT); // Configura o Botão 2 como entrada
+}
+
+void loop() {
+  // Leitura do estado do Botão 1
+  int VAR1 = digitalRead(BOTAO1);
+
+  // Se o Botão 1 estiver pressionado e o Botão 2 não estiver pressionado
+  if (VAR1 == HIGH && ESTADO_BOTAO2 == LOW) {
+    ESTADO_BOTAO1 = 1;
+  }
+
+  // Leitura do estado do Botão 2
+  int VAR2 = digitalRead(BOTAO2);
+
+  // Se o Botão 2 estiver pressionado e o Botão 1 não estiver pressionado
+  if (VAR2 == HIGH && ESTADO_BOTAO1 == LOW) {
+    ESTADO_BOTAO2 = 1;
+  }
+
+  // Controle dos LEDs
+  if (ESTADO_BOTAO1 == 1) {
+    digitalWrite(LED1, HIGH); // Acende o LED 1
+    digitalWrite(LED2, LOW); // Apaga o LED 2
+    delay(10000);
+  	asm volatile ("  jmp 0");
+  } else if (ESTADO_BOTAO2 == 1) {
+    digitalWrite(LED1, LOW); // Apaga o LED 1
+    digitalWrite(LED2, HIGH); // Acende o LED 2
+    delay(10000);
+  	asm volatile ("  jmp 0");
+  } else {
+    digitalWrite(LED1, LOW); // Apaga o LED 1
+    digitalWrite(LED2, LOW); // Apaga o LED 2
+  }
+}

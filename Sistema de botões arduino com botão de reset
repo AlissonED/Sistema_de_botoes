@@ -1,0 +1,73 @@
+const byte LED = 13;
+const byte BOTAO = 11;
+byte valorBotao;
+byte valorBotaoAnterior;
+boolean ledLigado = false;
+const byte LED2 = 12;
+const byte BOTAO2 = 10;
+byte valorBotao2;
+byte valorBotaoAnterior2;
+boolean ledLigado2 = false;
+const byte BOTAO3 = 9;
+byte valorBotao3;
+byte valorBotaoAnterior3;
+const byte buzzer = 8;
+
+
+void setup(){
+	pinMode(LED, OUTPUT);
+  	pinMode(BOTAO, INPUT_PULLUP);
+  	pinMode(LED2, OUTPUT);
+  	pinMode(BOTAO2, INPUT_PULLUP);
+  	pinMode(BOTAO3, INPUT_PULLUP);
+    pinMode(buzzer, OUTPUT);
+}
+
+void loop(){
+valorBotao = digitalRead(BOTAO);
+if(valorBotao != valorBotaoAnterior){
+  if(valorBotao){
+    // Quando o primeiro botão é pressionado, liga o primeiro LED e desliga o segundo LED
+    ledLigado = true;
+    ledLigado2 = false;
+    digitalWrite(LED, ledLigado);
+    digitalWrite(LED2, ledLigado2);
+    tone(buzzer, 10000,500);
+    delay(4000);
+    noTone(buzzer);
+  }
+}
+valorBotaoAnterior = valorBotao;
+
+valorBotao2 = digitalRead(BOTAO2);
+if(valorBotao2 != valorBotaoAnterior2){
+  if(valorBotao2){
+    // Quando o segundo botão é pressionado, liga o segundo LED e desliga o primeiro LED
+    ledLigado2 = true;
+    ledLigado = false;
+    digitalWrite(LED2, ledLigado2);
+    digitalWrite(LED, ledLigado);
+    tone(buzzer, 10000,500);
+    delay(4000);
+     noTone(buzzer);
+      }
+}
+valorBotaoAnterior2 = valorBotao2;
+  
+  
+valorBotao3 = digitalRead(BOTAO3);
+if(valorBotao3 != valorBotaoAnterior3){
+  if(valorBotao3){
+    // Quando o terceiro botão é pressionado, desliga ambos os LEDs
+    ledLigado = false;
+    ledLigado2 = false;
+    digitalWrite(LED, ledLigado);
+    digitalWrite(LED2, ledLigado2);
+    noTone(buzzer);
+  }
+}
+valorBotaoAnterior3 = valorBotao3;
+delay(10);
+
+
+}
